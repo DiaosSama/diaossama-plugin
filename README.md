@@ -9,47 +9,51 @@
 ## 部署
 
 1. 编译
-（这一步可跳过，可以直接使用 release 中打包好的 jar 文件）
-使用 IDEA 打开本项目，并初始化
-在 IDEA 中打开 `build.gradle` 文件，并找到 ShadowJar
 
-```groovy
-shadowJar {
-    // 生成包的命名规则： baseName-version-classifier.jar
-    manifest {
-        attributes(
-                'Main-Class': 'work.diaossama.qqbot.plugin.PluginMain'//入口点
-        )
-    }
+  （这一步可跳过，可以直接使用 release 中打包好的 jar 文件）
+  使用 IDEA 打开本项目，并初始化
+  在 IDEA 中打开 `build.gradle` 文件，并找到 ShadowJar
 
-    // 将 build.gradle 打入到 jar 中, 方便查看依赖包版本
-    from("./"){
-        include 'build.gradle'
-    }
-}
-```
+  ```groovy
+  shadowJar {
+      // 生成包的命名规则： baseName-version-classifier.jar
+      manifest {
+          attributes(
+                  'Main-Class': 'work.diaossama.qqbot.plugin.PluginMain'//入口点
+          )
+      }
+  
+      // 将 build.gradle 打入到 jar 中, 方便查看依赖包版本
+      from("./"){
+          include 'build.gradle'
+      }
+  }
+  ```
 
-点击 ShadowJar 左侧的 run 按钮（绿色小三角），build 完成之后在 `build/libs` 中找到编译好的 jar 文件
+  点击 ShadowJar 左侧的 run 按钮（绿色小三角），build 完成之后在 `build/libs` 中找到编译好的 jar 文件
 
 2. 将插件放入 mirai-terminal
-将编译好的 jar 文件复制到 mirai-console 中的 `plugins` 文件夹
+
+  将编译好的 jar 文件复制到 mirai-console 中的 `plugins` 文件夹
 
 3. 准备 sqlite 文件
-使用 `config` 目录下的 `database.sql` 生成 sqlite 文件，并将生成的 sqlite 文件复制到 mirai-console 的 `data/DiaosSama-Plugin/` 文件夹中（没有该目录则新建一个）
+
+  使用 `config` 目录下的 `database.sql` 生成 sqlite 文件，并将生成的 sqlite 文件复制到 mirai-console 的 `data/DiaosSama-Plugin/` 文件夹中（没有该目录则新建一个）
 
 4. 配置 PluginData.yml
-编辑 `config` 目录下的 `PluginData.yml`
 
-```yaml
-repeatGroupList: []
-bililiveEnableList: 
-  - Idtype: 1
-    Id: 1234567890  # 这一行填入允许发送B站监听指令的QQ号码
-  - Idtype: 1
-    Id: 9876543210  # 想要多个QQ号码同时发送指令则多添加一相
-```
+  编辑 `config` 目录下的 `PluginData.yml`
 
-然后将 `PluginData.yml` 文件复制到 `data/DiaosSama-Plugin` 目录下即可
+  ```yaml
+  repeatGroupList: []
+  bililiveEnableList: 
+    - Idtype: 1
+      Id: 1234567890  # 这一行填入允许发送B站监听指令的QQ号码
+    - Idtype: 1
+      Id: 9876543210  # 想要多个QQ号码同时发送指令则多添加一相
+  ```
+
+  然后将 `PluginData.yml` 文件复制到 `data/DiaosSama-Plugin` 目录下即可
 
 ## 功能
 
